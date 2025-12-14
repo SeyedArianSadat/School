@@ -16,7 +16,7 @@ import java.util.List;
 @SuperBuilder
 
 @Entity(name = "classroomEntity")
-@Table(name = "classrooms")
+@Table(name = "class_rooms")
 public class ClassRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,7 +26,6 @@ public class ClassRoom {
 
     @Column(nullable = false)
     private String classSubject;
-
 
     private String zoomLink;
 
