@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-
 @WebServlet("/classrooms")
 public class ClassRoomServlet extends HttpServlet {
 
@@ -19,7 +18,7 @@ public class ClassRoomServlet extends HttpServlet {
 
     @Override
     public void init() {
-        this.classRoomService = new ClassRoomService();
+        classRoomService = new ClassRoomService();
     }
 
     @Override
@@ -40,12 +39,36 @@ public class ClassRoomServlet extends HttpServlet {
         }
 
         try {
-            List<ClassRoom> list = classRoomService.findAll();
-            req.setAttribute("classList", list);
+            req.setAttribute("classList",
+                    classRoomService.findAll());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
-        req.getRequestDispatcher("/Classroom.jsp").forward(req, resp);
+        req.getRequestDispatcher("/classroom.jsp")
+                .forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+
+        int grade = Integer.parseInt(req.getParameter("grade"));
+        String subject = req.getParameter("subject");
+        String zoomLink = req.getParameter("zoomLink");
+
+        ClassRoom classRoom = ClassRoom.builder()
+                .grade(grade)
+                .classSubject(subject)
+                .zoomLink(zoomLink)
+                .build();
+
+        try {
+            classRoomService.save(classRoom);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        resp.sendRedirect("classrooms");
     }
 }
