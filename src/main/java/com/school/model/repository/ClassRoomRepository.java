@@ -75,7 +75,7 @@ public class ClassRoomRepository {
     public List<ClassRoom> findAll() {
         EntityManager entityManager = JpaProvider.getInstance().getEntityManager();
         try {
-            String jpql = "select c from classroomEntity c";
+            String jpql = "select c from ClassRoom c";
             TypedQuery<ClassRoom> query = entityManager.createQuery(jpql, ClassRoom.class);
             return query.getResultList();
         } finally {

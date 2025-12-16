@@ -15,7 +15,7 @@ import java.util.List;
 @ToString
 @SuperBuilder
 
-@Entity(name = "classroomEntity")
+@Entity
 @Table(name = "class_rooms")
 public class ClassRoom {
     @Id
